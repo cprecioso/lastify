@@ -28,7 +28,7 @@ export default () => {
         <APIProvider
           clientId={process.env.CLIENT_ID!}
           loginButton={LoginButton}
-          redirectUrl="http://localhost:3000/"
+          redirectUrl="https://lastify.now.sh/"
         >
           <TopBar />
           <ErrorView />
