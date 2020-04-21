@@ -1,0 +1,35 @@
+{
+  "name": "lastify",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Lastify shows you the last 50 songs you listened to on Spotify",
+  "homepage": "https://github.com/cprecioso/lastify#readme",
+  "bugs": {
+    "url": "https://github.com/cprecioso/lastify/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cprecioso/lastify.git"
+  },
+  "license": "MIT",
+  "author": "Carlos Precioso <kalprestito@gmail.com>",
+  "dependencies": {
+    "@material-ui/core": "^4.9.11",
+    "@material-ui/icons": "^4.9.1",
+    "immer": "^6.0.3",
+    "next": "^9.3.5",
+    "p-queue": "^6.3.0",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "swr": "^0.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^13.13.0",
+    "@types/react": "^16.9.34",
+    "@types/react-dom": "^16.9.6",
+    "@types/styled-jsx": "^2.2.8",
+    "dotenv": "^8.2.0",
+    "prettier": "^2.0.4",
+    "typescript": "^3.9.0-beta"
+  }
+}
