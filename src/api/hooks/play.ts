@@ -9,7 +9,7 @@ import { mutateLastPlayed } from "./recently-played"
 
 const makeChangePlayer = (
   fetcher: SpotifyFetcher,
-  notifyError: (err: string) => void
+  notifyError: (err: any) => void
 ) => async (newId: string, forcePlay?: boolean) => {
   mutateDevices(
     produce((data: Response) => {
@@ -27,7 +27,7 @@ const makeChangePlayer = (
       json: { device_ids: [newId], play: forcePlay },
     })
   } catch (err) {
-    notifyError("" + err)
+    notifyError(err)
   }
 }
 
@@ -43,7 +43,7 @@ export const useChangePlayer = () => {
 
 const makePlay = (
   fetcher: SpotifyFetcher,
-  notifyError: (err: string) => void
+  notifyError: (err: any) => void
 ) => async (uri: string, deviceId?: string) => {
   try {
     await fetcher(
@@ -56,7 +56,7 @@ const makePlay = (
       }
     )
   } catch (err) {
-    notifyError("" + err)
+    notifyError(err)
   }
 
   mutateCurrentlyPlaying()

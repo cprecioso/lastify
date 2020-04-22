@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useContext } from "react"
 
 const ErrorContext = React.createContext<
-  [string | undefined, (err: string | undefined) => void]
+  [any | undefined, (err: any | undefined) => void]
 >([undefined, () => {}])
 
 export const ErrorView: FunctionComponent = () => {
@@ -21,7 +21,7 @@ export const ErrorView: FunctionComponent = () => {
             max-width: 600px;
           }
         `}</style>
-        {error}
+        {typeof error === "string" ? error : JSON.stringify(error, null, 2)}
       </div>
     </a>
   )
