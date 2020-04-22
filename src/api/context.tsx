@@ -6,12 +6,16 @@ import { getLoginUrl, LoginInfo, retrieveLoginInfo } from "./login"
 
 export interface APIContextValue {
   fetcher: SpotifyFetcher
+  loginInfo: LoginInfo
   selectedDevice: string | undefined
   setSelectedDevice: React.Dispatch<React.SetStateAction<string | undefined>>
 }
 
 const APIContext = React.createContext<APIContextValue>({
   fetcher() {
+    throw new Error("No APIProvider")
+  },
+  get loginInfo(): never {
     throw new Error("No APIProvider")
   },
   get selectedDevice(): never {
@@ -39,7 +43,9 @@ const RealAPIProvider: FunctionComponent<{
   >(undefined)
 
   return (
-    <APIContext.Provider value={{ fetcher, selectedDevice, setSelectedDevice }}>
+    <APIContext.Provider
+      value={{ fetcher, selectedDevice, setSelectedDevice, loginInfo }}
+    >
       <SWRConfig value={{ refreshInterval: 30 * 1000, fetcher }}>
         {children}
       </SWRConfig>
@@ -82,3 +88,5 @@ export const useSelectedDevice = () => {
   const { selectedDevice, setSelectedDevice } = React.useContext(APIContext)
   return { selectedDevice, setSelectedDevice }
 }
+
+export const useLoginInfo = () => React.useContext(APIContext).loginInfo
