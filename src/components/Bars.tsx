@@ -1,5 +1,6 @@
 import React, { FunctionComponent } from "react"
 import { mutateCurrentlyPlaying } from "../api/hooks/currently-playing"
+import { mutateDevices } from "../api/hooks/devices"
 import { mutateLastPlayed } from "../api/hooks/recently-played"
 import DeviceSelection from "./DeviceSelection"
 
@@ -49,6 +50,7 @@ export const TopBar: FunctionComponent<{ hidePlayer?: boolean }> = ({
       onClick={React.useCallback(() => {
         mutateCurrentlyPlaying()
         mutateLastPlayed()
+        mutateDevices()
       }, [])}
     >
       Lastify

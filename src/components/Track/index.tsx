@@ -15,7 +15,7 @@ export const Track: FunctionComponent<{
 
   const handleClick = React.useCallback(() => {
     play(track.uri, selectedDevice)
-  }, [track.uri])
+  }, [track.uri, selectedDevice])
 
   const albumImage = track.album.images[0].url
   const { setRef, bgImage } = useImageColor()

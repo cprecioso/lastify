@@ -1,6 +1,7 @@
 import React from "react"
 import useSWR, { mutate } from "swr"
 import { useNotifyError } from "../../components/ErrorView"
+import { useSelectedDevice } from "../context"
 import type t from "../types"
 
 export type Response = { devices: t.Device[] }
@@ -19,8 +20,14 @@ export const useDevices = () => {
 
   const devices = data?.devices ?? []
   const activeDevice = React.useMemo(
-    () => devices.find((device) => device.is_active),
+    () =>
+      devices.find((device) => device.is_active) ??
+      (devices[0] as t.Device | undefined),
     [devices]
   )
+
+  const { setSelectedDevice } = useSelectedDevice()
+  React.useEffect(() => setSelectedDevice(activeDevice?.id), [activeDevice?.id])
+
   return { devices, activeDevice, isValidating }
 }

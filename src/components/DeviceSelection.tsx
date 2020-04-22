@@ -29,9 +29,7 @@ const DeviceSelection: FunctionComponent = () => {
       <label>
         Play in{" "}
         <select onChange={handleChange} value={activeDevice?.id}>
-          <option selected disabled>
-            (choose a device)
-          </option>
+          <option disabled>(choose a device)</option>
           {devices.map((device) => (
             <option key={device.id} value={device.id}>
               {device.name}
