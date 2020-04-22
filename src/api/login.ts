@@ -5,7 +5,7 @@ export const getLoginUrl = (clientId: string, redirectUrl: string | URL) => {
   authUrl.searchParams.set("redirect_uri", "" + redirectUrl)
   authUrl.searchParams.set(
     "scope",
-    "user-read-recently-played user-modify-playback-state user-read-playback-state"
+    "user-read-recently-played user-modify-playback-state user-read-playback-state streaming user-read-email user-read-private"
   )
 
   return authUrl.href

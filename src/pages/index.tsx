@@ -5,6 +5,7 @@ import App from "../components/App"
 import { BottomBar, TopBar } from "../components/Bars"
 import { ErrorBoundary, ErrorView } from "../components/ErrorView"
 import LoginButton from "../components/LoginButton"
+import { SpotifyPlayback } from "../components/SpotifyPlayback"
 
 export default () => {
   return (
@@ -30,6 +31,7 @@ export default () => {
           loginButton={LoginButton}
           redirectUrl={process.env.REDIRECT_URL!}
         >
+          <SpotifyPlayback />
           <TopBar />
           <ErrorView />
           <App />
