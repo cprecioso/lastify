@@ -3,7 +3,7 @@ import React from "react"
 
 const pQueue = new PQueue({ concurrency: 1 })
 
-const DOWNSIZE_PIXELS = 10
+const DOWNSIZE_PIXELS = 20
 
 const { createCanvas, toBlob } = globalThis.OffscreenCanvas
   ? {

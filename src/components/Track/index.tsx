@@ -90,6 +90,7 @@ export const Track: FunctionComponent<{
 
         .bg {
           background-image: ${bgImage ? `url("${bgImage}")` : ""};
+          background-position: center center;  
           background-size: cover;
           background-repeat: no-repeat;
           position: absolute;
@@ -97,7 +98,7 @@ export const Track: FunctionComponent<{
           left: 0;
           width: 100%;
           height: 100%;
-          filter: blur(30px);
+          filter: blur(20px);
           transform: scale(1.2);
           z-index: -1;
         }
