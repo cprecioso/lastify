@@ -32,7 +32,7 @@ const DeviceSelection: FunctionComponent = () => {
           <option disabled>(choose a device)</option>
           {devices.map((device) => (
             <option key={device.id} value={device.id}>
-              {device.name}
+              {device.name === "Lastify" ? "this tab" : device.name}
             </option>
           ))}
         </select>
