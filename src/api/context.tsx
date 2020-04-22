@@ -4,12 +4,23 @@ import { SWRConfig } from "swr"
 import makeSpotifyFetcher, { SpotifyFetcher } from "./fetcher"
 import { getLoginUrl, LoginInfo, retrieveLoginInfo } from "./login"
 
-const APIContext = React.createContext<SpotifyFetcher>(() => {
-  throw new Error("No APIProvider")
+export interface APIContextValue {
+  fetcher: SpotifyFetcher
+  selectedDevice: string | undefined
+  setSelectedDevice: React.Dispatch<React.SetStateAction<string | undefined>>
+}
+
+const APIContext = React.createContext<APIContextValue>({
+  fetcher() {
+    throw new Error("No APIProvider")
+  },
+  get selectedDevice(): never {
+    throw new Error("No APIProvider")
+  },
+  setSelectedDevice() {
+    throw new Error("No APIProvider")
+  },
 })
-const SelectedDeviceContext = React.createContext<
-  [string | undefined, (newSelected: string | undefined) => void]
->([undefined, () => {}])
 
 export type LoginButtonComponent = ComponentType<{ loginUrl: string }>
 
@@ -23,15 +34,15 @@ const RealAPIProvider: FunctionComponent<{
     [loginInfo]
   )
 
-  const selectedDevice = React.useState<string | undefined>(undefined)
+  const [selectedDevice, setSelectedDevice] = React.useState<
+    string | undefined
+  >(undefined)
 
   return (
-    <APIContext.Provider value={fetcher}>
-      <SelectedDeviceContext.Provider value={selectedDevice}>
-        <SWRConfig value={{ refreshInterval: 30 * 1000, fetcher }}>
-          {children}
-        </SWRConfig>
-      </SelectedDeviceContext.Provider>
+    <APIContext.Provider value={{ fetcher, selectedDevice, setSelectedDevice }}>
+      <SWRConfig value={{ refreshInterval: 30 * 1000, fetcher }}>
+        {children}
+      </SWRConfig>
     </APIContext.Provider>
   )
 }
@@ -65,11 +76,9 @@ export const APIProvider: FunctionComponent<{
   )
 }
 
-export const useFetcher = () => React.useContext(APIContext)
+export const useFetcher = () => React.useContext(APIContext).fetcher
 
 export const useSelectedDevice = () => {
-  const [selectedDevice, setSelectedDevice] = React.useContext(
-    SelectedDeviceContext
-  )
+  const { selectedDevice, setSelectedDevice } = React.useContext(APIContext)
   return { selectedDevice, setSelectedDevice }
 }
