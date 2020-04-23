@@ -57,8 +57,8 @@ const LoginButton: LoginButtonComponent = ({ loginUrl }) => {
         </a>
 
         <p className="privacy">
-          (We don't see <em>any</em> of your data. Your music is personal, so it
-          should be private.)
+          (We don't see <em>any</em> of your Spotify data. Your music is
+          personal, so it should be private.)
         </p>
       </div>
     </div>
