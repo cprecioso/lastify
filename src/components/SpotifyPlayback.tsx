@@ -40,7 +40,6 @@ export const SpotifyPlayback: FunctionComponent = () => {
           getOAuthToken: (cb) => cb(loginInfo.accessToken),
         })
         globalPlayer = player
-        Object.assign(window, { globalPlayer })
         setPlayer(player)
         player.connect().then(() => setTimeout(() => mutateDevices(), 1000))
       }

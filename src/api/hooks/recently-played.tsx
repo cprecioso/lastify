@@ -5,7 +5,7 @@ import type t from "../types"
 
 export type Response = t.PagingObject<t.PlayHistory>
 
-const KEY = "/v1/me/player/recently-played"
+const KEY = "/v1/me/player/recently-played?limit=50"
 
 export const mutateLastPlayed = mutate.bind(null, KEY)
 

@@ -44,19 +44,17 @@ const LoadMoreButton: FunctionComponent<{
 }
 
 const App: FunctionComponent = ({}) => {
-  const { isLoadingMore, isReachingEnd, pages, loadMore } = useLastPlayed(
-    ({ plays }) => (
-      <>
-        {plays.map((play) => (
-          <Track
-            key={play.played_at}
-            track={play.track}
-            playedAt={play.played_at}
-          />
-        ))}
-      </>
-    )
-  )
+  const { isLoadingMore, pages, loadMore } = useLastPlayed(({ plays }) => (
+    <>
+      {plays.map((play) => (
+        <Track
+          key={play.played_at}
+          track={play.track}
+          playedAt={play.played_at}
+        />
+      ))}
+    </>
+  ))
 
   return (
     <div>
@@ -65,7 +63,7 @@ const App: FunctionComponent = ({}) => {
         <LoadMoreButton
           isLoadingMore={isLoadingMore}
           loadMore={loadMore}
-          isReachingEnd={isReachingEnd}
+          isReachingEnd={true}
         />
       </TrackList>
     </div>
