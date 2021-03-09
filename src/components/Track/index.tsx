@@ -2,7 +2,6 @@ import { FunctionComponent, useCallback } from "react"
 import css from "styled-jsx/css"
 import { types as t, usePlay } from "../../api"
 import { useSelectedDevice } from "../../api/context"
-import { useImageColor } from "../../hooks/image-color"
 import { Artist } from "./Artist"
 import { TimeAgo } from "./TimeAgo"
 
@@ -18,7 +17,6 @@ export const Track: FunctionComponent<{
   }, [track.uri, selectedDevice])
 
   const albumImage = track.album.images[0].url
-  const { setRef, bgImage } = useImageColor()
 
   const timeAgoStyle = css.resolve`
     .time-ago {
@@ -89,7 +87,6 @@ export const Track: FunctionComponent<{
         }
 
         .bg {
-          background-image: ${bgImage ? `url("${bgImage}")` : ""};
           background-position: center center;  
           background-size: cover;
           background-repeat: no-repeat;
@@ -134,7 +131,7 @@ export const Track: FunctionComponent<{
 
       <div className={`wrapper ${playedAt == null ? "is-playing" : ""}`}>
         <a onClick={handleClick} className="image" title="Play the track">
-          <img ref={setRef} crossOrigin="anonymous" src={albumImage} />
+          <img crossOrigin="anonymous" src={albumImage} />
         </a>
 
         <div className="info">
@@ -154,7 +151,15 @@ export const Track: FunctionComponent<{
         />
       </div>
 
-      <div className="bg" />
+      <div
+        style={{
+          backgroundImage: `url("/api/bg?url=${encodeURIComponent(
+            albumImage
+          )}")`,
+          color: "red",
+        }}
+        className="bg"
+      />
     </li>
   )
 }
