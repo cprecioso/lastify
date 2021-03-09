@@ -1,3 +1,4 @@
+import type { NextPage } from "next"
 import Head from "next/head"
 import { APIProvider } from "../api"
 import App from "../components/App"
@@ -6,7 +7,7 @@ import { ErrorBoundary, ErrorView } from "../components/ErrorView"
 import LoginButton from "../components/LoginButton"
 import { SpotifyPlayback } from "../components/SpotifyPlayback"
 
-export default () => {
+const IndexPage: NextPage = () => {
   return (
     <div>
       <Head>
@@ -40,3 +41,5 @@ export default () => {
     </div>
   )
 }
+
+export default IndexPage
