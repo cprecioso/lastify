@@ -26,9 +26,9 @@ export default () => {
 
       <ErrorBoundary>
         <APIProvider
-          clientId={process.env.CLIENT_ID!}
+          clientId={process.env.NEXT_PUBLIC_CLIENT_ID!}
           loginButton={LoginButton}
-          redirectUrl={process.env.REDIRECT_URL!}
+          redirectUrl={process.env.NEXT_PUBLIC_REDIRECT_URI!}
         >
           <SpotifyPlayback />
           <TopBar />
