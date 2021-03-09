@@ -1,5 +1,5 @@
-import { ComponentType, useEffect } from "react"
-import useSWR, { mutate, useSWRPages } from "swr"
+import { useEffect } from "react"
+import useSWR, { mutate } from "swr"
 import { useNotifyError } from "../../components/ErrorView"
 import type t from "../types"
 
@@ -9,36 +9,16 @@ const KEY = "/v1/me/player/recently-played?limit=50"
 
 export const mutateLastPlayed = mutate.bind(null, KEY)
 
-export const useLastPlayed = (
-  PageComponent: ComponentType<{
-    plays: t.PlayHistory[]
-    isValidating: boolean
-  }>
-) => {
-  return useSWRPages<string | null, Response>(
-    "recently-played",
-    ({ offset, withSWR }) => {
-      const { data, error, isValidating } = withSWR(
-        useSWR(
-          offset || KEY,
-          offset
-            ? {
-                refreshInterval: 0,
-                revalidateOnFocus: false,
-                revalidateOnReconnect: false,
-              }
-            : undefined
-        )
-      )
+export const useLastPlayed = () => {
+  const { data, error, isValidating } = useSWR<Response>(KEY, {
+    refreshInterval: 60 * 1000,
+  })
 
-      const notifyError = useNotifyError()
-      useEffect(() => {
-        if (error) notifyError(error)
-      }, [error])
+  const notifyError = useNotifyError()
+  useEffect(() => {
+    if (error) notifyError(error)
+  }, [error])
 
-      const plays = data?.items ?? []
-      return <PageComponent plays={plays} isValidating={isValidating} />
-    },
-    ({ data }) => data?.next ?? null
-  )
+  const plays = data?.items ?? []
+  return { plays, isValidating }
 }
