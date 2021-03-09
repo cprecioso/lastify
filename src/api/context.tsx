@@ -1,5 +1,13 @@
 import { useRouter } from "next/router"
-import React, { ComponentType, FunctionComponent } from "react"
+import {
+  ComponentType,
+  createContext,
+  FunctionComponent,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react"
 import { SWRConfig } from "swr"
 import makeSpotifyFetcher, { SpotifyFetcher } from "./fetcher"
 import { getLoginUrl, LoginInfo, retrieveLoginInfo } from "./login"
@@ -11,7 +19,7 @@ export interface APIContextValue {
   setSelectedDevice: React.Dispatch<React.SetStateAction<string | undefined>>
 }
 
-const APIContext = React.createContext<APIContextValue>({
+const APIContext = createContext<APIContextValue>({
   fetcher() {
     throw new Error("No APIProvider")
   },
@@ -33,14 +41,14 @@ const RealAPIProvider: FunctionComponent<{
   loginInfo: LoginInfo
   setLoginInfo: React.Dispatch<React.SetStateAction<LoginInfo | null>>
 }> = ({ loginInfo, children, setLoginInfo }) => {
-  const fetcher = React.useMemo(
+  const fetcher = useMemo(
     () => makeSpotifyFetcher(loginInfo, () => setLoginInfo(null)),
     [loginInfo]
   )
 
-  const [selectedDevice, setSelectedDevice] = React.useState<
-    string | undefined
-  >(undefined)
+  const [selectedDevice, setSelectedDevice] = useState<string | undefined>(
+    undefined
+  )
 
   return (
     <APIContext.Provider
@@ -59,9 +67,9 @@ export const APIProvider: FunctionComponent<{
   loginButton: LoginButtonComponent
 }> = ({ children, clientId, loginButton: LoginButton, redirectUrl }) => {
   const router = useRouter()
-  const [loginInfo, setLoginInfo] = React.useState<LoginInfo | null>(null)
+  const [loginInfo, setLoginInfo] = useState<LoginInfo | null>(null)
 
-  React.useEffect(() => {
+  useEffect(() => {
     const loginInfo = retrieveLoginInfo(router.asPath)
     if (loginInfo) setLoginInfo(loginInfo)
   }, [router.asPath])
@@ -82,11 +90,11 @@ export const APIProvider: FunctionComponent<{
   )
 }
 
-export const useFetcher = () => React.useContext(APIContext).fetcher
+export const useFetcher = () => useContext(APIContext).fetcher
 
 export const useSelectedDevice = () => {
-  const { selectedDevice, setSelectedDevice } = React.useContext(APIContext)
+  const { selectedDevice, setSelectedDevice } = useContext(APIContext)
   return { selectedDevice, setSelectedDevice }
 }
 
-export const useLoginInfo = () => React.useContext(APIContext).loginInfo
+export const useLoginInfo = () => useContext(APIContext).loginInfo

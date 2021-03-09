@@ -1,4 +1,4 @@
-import React, { ComponentType } from "react"
+import { ComponentType, useEffect } from "react"
 import useSWR, { mutate, useSWRPages } from "swr"
 import { useNotifyError } from "../../components/ErrorView"
 import type t from "../types"
@@ -32,7 +32,7 @@ export const useLastPlayed = (
       )
 
       const notifyError = useNotifyError()
-      React.useEffect(() => {
+      useEffect(() => {
         if (error) notifyError(error)
       }, [error])
 

@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from "react"
+import { FunctionComponent, useCallback, useEffect } from "react"
 import { useChangePlayer, useDevices } from "../api"
 import { useSelectedDevice } from "../api/context"
 
@@ -8,11 +8,11 @@ const DeviceSelection: FunctionComponent = () => {
 
   const { setSelectedDevice } = useSelectedDevice()
 
-  const handleChange = React.useCallback((e) => {
+  const handleChange = useCallback((e) => {
     changePlayer(e.currentTarget.value)
   }, [])
 
-  React.useEffect(() => {
+  useEffect(() => {
     setSelectedDevice(activeDevice?.id)
   }, [activeDevice])
 

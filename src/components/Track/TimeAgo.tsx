@@ -1,6 +1,6 @@
 import ScheduleIcon from "@material-ui/icons/Schedule"
 import VolumeUpIcon from "@material-ui/icons/VolumeUp"
-import React, { FunctionComponent } from "react"
+import { FunctionComponent, useMemo } from "react"
 import { useRefresh } from "../../hooks/refresh"
 import {
   closeTimeFormat,
@@ -17,7 +17,7 @@ export const TimeAgo: FunctionComponent<{
 }> = ({ timestamp, className }) => {
   useRefresh()
 
-  const date = React.useMemo(
+  const date = useMemo(
     () => (timestamp ? parseSpotifyTimestamp(timestamp) : null),
     [timestamp]
   )

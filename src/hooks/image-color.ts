@@ -1,5 +1,5 @@
 import PQueue from "p-queue"
-import React from "react"
+import { useCallback, useEffect, useState } from "react"
 
 const pQueue = new PQueue({ concurrency: 1 })
 
@@ -27,10 +27,10 @@ const { createCanvas, toBlob } = globalThis.OffscreenCanvas
     }
 
 export const useImageColor = () => {
-  const [ref, setRef] = React.useState<HTMLImageElement | null>(null)
-  const [bgImage, setBgImage] = React.useState("")
+  const [ref, setRef] = useState<HTMLImageElement | null>(null)
+  const [bgImage, setBgImage] = useState("")
 
-  const listener = React.useCallback(async () => {
+  const listener = useCallback(async () => {
     if (!ref) return
     pQueue.add(async () => {
       const canvas = createCanvas()
@@ -42,7 +42,7 @@ export const useImageColor = () => {
     })
   }, [ref])
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (ref) {
       ref.addEventListener("load", listener, { once: true })
       return () => ref.removeEventListener("load", listener)

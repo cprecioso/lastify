@@ -1,5 +1,5 @@
 import { produce } from "immer"
-import React from "react"
+import { useMemo } from "react"
 import { useNotifyError } from "../../components/ErrorView"
 import { useFetcher } from "../context"
 import { SpotifyFetcher } from "../fetcher"
@@ -34,10 +34,9 @@ const makeChangePlayer = (
 export const useChangePlayer = () => {
   const fetcher = useFetcher()
   const notifyError = useNotifyError()
-  const changePlayer = React.useMemo(
-    () => makeChangePlayer(fetcher, notifyError),
-    [fetcher]
-  )
+  const changePlayer = useMemo(() => makeChangePlayer(fetcher, notifyError), [
+    fetcher,
+  ])
   return changePlayer
 }
 
@@ -67,7 +66,7 @@ export const usePlay = () => {
   const fetcher = useFetcher()
   const notifyError = useNotifyError()
 
-  const play = React.useMemo(() => makePlay(fetcher, notifyError), [fetcher])
+  const play = useMemo(() => makePlay(fetcher, notifyError), [fetcher])
 
   return play
 }

@@ -1,4 +1,4 @@
-import React from "react"
+import { useEffect } from "react"
 import useSWR, { mutate } from "swr"
 import { useNotifyError } from "../../components/ErrorView"
 import type t from "../types"
@@ -15,7 +15,7 @@ export const useCurrentlyPlaying = () => {
   const { data, isValidating, error } = useSWR<Response>(KEY)
 
   const notifyError = useNotifyError()
-  React.useEffect(() => {
+  useEffect(() => {
     if (error) notifyError(error)
   }, [error])
 
@@ -24,7 +24,7 @@ export const useCurrentlyPlaying = () => {
       ? (data as TrackResponse)
       : null
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (play?.is_playing) {
       const handle = setTimeout(() => {
         mutateCurrentlyPlaying()

@@ -1,9 +1,9 @@
-import { AppProps } from "next/app"
+import type { NextPage } from "next"
+import type { AppProps } from "next/app"
 import Head from "next/head"
-import { FunctionComponent } from "react"
 import { GoogleAnalytics, IconTheming, SiteMetadata } from "../components/Seo"
 
-const LastifyApp: FunctionComponent<AppProps> = ({ Component, pageProps }) => (
+const LastifyApp: NextPage<AppProps> = ({ Component, pageProps }) => (
   <>
     <IconTheming />
     <SiteMetadata />

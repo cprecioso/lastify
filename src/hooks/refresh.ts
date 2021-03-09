@@ -1,4 +1,4 @@
-import React from "react"
+import { useEffect, useState } from "react"
 
 const tickers = new Set()
 let handle: ReturnType<typeof setInterval> | null = null
@@ -19,9 +19,9 @@ const start = () => {
 }
 
 export const useRefresh = () => {
-  const [, setTicker] = React.useState()
+  const [, setTicker] = useState()
 
-  React.useEffect(() => {
+  useEffect(() => {
     tickers.add(setTicker)
     start()
     return () => void tickers.delete(setTicker)

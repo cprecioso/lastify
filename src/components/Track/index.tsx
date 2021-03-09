@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from "react"
+import { FunctionComponent, useCallback } from "react"
 import css from "styled-jsx/css"
 import { types as t, usePlay } from "../../api"
 import { useSelectedDevice } from "../../api/context"
@@ -13,7 +13,7 @@ export const Track: FunctionComponent<{
   const play = usePlay()
   const { selectedDevice } = useSelectedDevice()
 
-  const handleClick = React.useCallback(() => {
+  const handleClick = useCallback(() => {
     play(track.uri, selectedDevice)
   }, [track.uri, selectedDevice])
 

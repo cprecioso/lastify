@@ -1,4 +1,3 @@
-import React from "react"
 import { LoginButtonComponent } from "../api/context"
 import { TopBar } from "./Bars"
 import { ErrorView } from "./ErrorView"

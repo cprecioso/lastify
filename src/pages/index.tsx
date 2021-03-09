@@ -1,5 +1,4 @@
 import Head from "next/head"
-import React from "react"
 import { APIProvider } from "../api"
 import App from "../components/App"
 import { BottomBar, TopBar } from "../components/Bars"

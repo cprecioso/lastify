@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from "react"
+import { FunctionComponent, useCallback } from "react"
 import { mutateCurrentlyPlaying } from "../api/hooks/currently-playing"
 import { mutateDevices } from "../api/hooks/devices"
 import { mutateLastPlayed } from "../api/hooks/recently-played"
@@ -47,7 +47,7 @@ export const TopBar: FunctionComponent<{ hidePlayer?: boolean }> = ({
     <a
       title={hidePlayer ? "" : "Reload data"}
       className="brand"
-      onClick={React.useCallback(() => {
+      onClick={useCallback(() => {
         mutateCurrentlyPlaying()
         mutateLastPlayed()
         mutateDevices()

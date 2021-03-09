@@ -1,4 +1,4 @@
-import React from "react"
+import { useEffect, useMemo } from "react"
 import useSWR, { mutate } from "swr"
 import { useNotifyError } from "../../components/ErrorView"
 import { useSelectedDevice } from "../context"
@@ -14,12 +14,12 @@ export const useDevices = () => {
   const { data, error, isValidating } = useSWR<Response>(KEY)
 
   const notifyError = useNotifyError()
-  React.useEffect(() => {
+  useEffect(() => {
     if (error) notifyError(error)
   }, [error])
 
   const devices = data?.devices ?? []
-  const activeDevice = React.useMemo(
+  const activeDevice = useMemo(
     () =>
       devices.find((device) => device.is_active) ??
       (devices[0] as t.Device | undefined),
@@ -27,7 +27,7 @@ export const useDevices = () => {
   )
 
   const { setSelectedDevice } = useSelectedDevice()
-  React.useEffect(() => setSelectedDevice(activeDevice?.id), [activeDevice?.id])
+  useEffect(() => setSelectedDevice(activeDevice?.id), [activeDevice?.id])
 
   return { devices, activeDevice, isValidating }
 }

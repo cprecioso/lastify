@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from "react"
+import type { FunctionComponent } from "react"
 import type { types as t } from "../../api"
 
 export const Artist: FunctionComponent<{

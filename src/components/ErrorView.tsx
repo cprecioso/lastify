@@ -1,12 +1,18 @@
-import React, { FunctionComponent, useContext } from "react"
+import {
+  createContext,
+  FunctionComponent,
+  useCallback,
+  useContext,
+  useState,
+} from "react"
 
-const ErrorContext = React.createContext<
+const ErrorContext = createContext<
   [any | undefined, (err: any | undefined) => void]
 >([undefined, () => {}])
 
 export const ErrorView: FunctionComponent = () => {
   const [error, setError] = useContext(ErrorContext)
-  const reset = React.useCallback(() => setError(undefined), [])
+  const reset = useCallback(() => setError(undefined), [])
   if (!error) return null
   return (
     <a onClick={reset} title="Close error">
@@ -28,11 +34,11 @@ export const ErrorView: FunctionComponent = () => {
 }
 
 export const ErrorBoundary: FunctionComponent = ({ children }) => {
-  const error = React.useState<string | undefined>(undefined)
+  const error = useState<string | undefined>(undefined)
   return <ErrorContext.Provider value={error}>{children}</ErrorContext.Provider>
 }
 
 export const useNotifyError = () => {
-  const [, setError] = React.useContext(ErrorContext)
+  const [, setError] = useContext(ErrorContext)
   return setError
 }

@@ -1,5 +1,5 @@
 import Head from "next/head"
-import React, { FunctionComponent } from "react"
+import { FunctionComponent, useEffect, useState } from "react"
 import { useLoginInfo } from "../api/context"
 import { mutateDevices } from "../api/hooks/devices"
 
@@ -27,12 +27,10 @@ declare global {
 let globalPlayer: Spotify.Player | null = null
 
 export const SpotifyPlayback: FunctionComponent = () => {
-  const [player, setPlayer] = React.useState<Spotify.Player | null>(
-    globalPlayer
-  )
+  const [player, setPlayer] = useState<Spotify.Player | null>(globalPlayer)
   const loginInfo = useLoginInfo()
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!player) {
       window.onSpotifyWebPlaybackSDKReady = () => {
         const player = new Spotify.Player({
