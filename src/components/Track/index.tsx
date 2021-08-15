@@ -156,7 +156,6 @@ export const Track: FunctionComponent<{
           backgroundImage: `url("/api/bg?url=${encodeURIComponent(
             albumImage
           )}")`,
-          color: "red",
         }}
         className="bg"
       />
